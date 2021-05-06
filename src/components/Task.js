@@ -1,7 +1,10 @@
 import React from "react";
 import { FaTimes, FaCheck, FaUndo } from "react-icons/fa";
+import { useAppContext } from "../contexts/AppContext";
 
-const Task = ({ task, deleteTask, toggleComplete }) => {
+const Task = ({ task }) => {
+  const [, dispatch] = useAppContext();
+  // const { deleteTask, toggleComplete } = useAppContext();
   return (
     <div className="task">
       <div style={{ opacity: task.complete ? 0.5 : 1 }}>
@@ -13,12 +16,17 @@ const Task = ({ task, deleteTask, toggleComplete }) => {
       <div>
         <button
           onClick={() => {
-            deleteTask(task.id);
+            dispatch({
+              type: "TASK_DELETE",
+              payload: task.id,
+            });
           }}
         >
           <FaTimes style={{ color: "red" }} />
         </button>{" "}
-        <button onClick={() => toggleComplete(task.id)}>
+        <button
+          onClick={() => dispatch({ type: "TASK_TOGGLE", payload: task.id })}
+        >
           {task.complete ? (
             <FaUndo style={{ color: "#333" }} />
           ) : (

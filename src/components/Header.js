@@ -1,11 +1,15 @@
 import React from "react";
+import { useAppContext } from "../contexts/AppContext";
 
-const Header = ({ toggleForm }) => {
+const Header = () => {
+  const [, dispatch] = useAppContext();
   return (
     <header>
       <div className="container">
         <h1>Task Tracker</h1>
-        <button onClick={toggleForm}>Add Task</button>
+        <button onClick={() => dispatch({ type: "FORM_TOGGLE" })}>
+          Add Task
+        </button>
       </div>
     </header>
   );

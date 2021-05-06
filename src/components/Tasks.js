@@ -1,18 +1,13 @@
 import React from "react";
+import { useAppContext } from "../contexts/AppContext";
 import Task from "./Task";
 
-const Tasks = ({ taskData, deleteTask, toggleComplete }) => {
+const Tasks = () => {
+  const [{ currentTasks }] = useAppContext();
   return (
     <div>
-      {taskData.map((t) => {
-        return (
-          <Task
-            key={t.id}
-            task={t}
-            deleteTask={deleteTask}
-            toggleComplete={toggleComplete}
-          />
-        );
+      {currentTasks.map((t) => {
+        return <Task key={t.id} task={t} />;
       })}
     </div>
   );

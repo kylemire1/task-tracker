@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useAppContext } from "../contexts/AppContext";
 
-const TaskForm = ({ addTask, toggleForm }) => {
+const TaskForm = () => {
   const [nameValue, setNameValue] = useState("");
+  const [, dispatch] = useAppContext();
 
   const handleChange = (event) => {
     const { value } = event.currentTarget;
@@ -11,9 +13,12 @@ const TaskForm = ({ addTask, toggleForm }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    addTask(nameValue);
+    dispatch({
+      type: "TASK_ADD",
+      payload: nameValue,
+    });
     setNameValue("");
-    toggleForm();
+    dispatch({ type: "FORM_TOGGLE" });
   };
 
   return (
